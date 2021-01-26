@@ -4,4 +4,3 @@ FOLDER=`echo "$0" | grep -o "^.*\/"`
 
 exec java -jar $0 "$FOLDER" 
 
-lolcat: mini-file-server: No such file or directory

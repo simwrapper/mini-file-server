@@ -105,7 +105,7 @@ public class RequestThread extends Thread {
                 Arrays.sort(files);
                 sendHeader(out, 200, "text/html", -1, System.currentTimeMillis());
                 String title = "Index of " + path;
-                out.write(("<html><head><title tag=\"SimpleWebServer\">" + title + "</title></head>" +
+                out.write(("<html><head><meta charset=\"UTF-8\"><title tag=\"SimpleWebServer\">" + title + "</title></head>" +
                         "<body style='background-color: #fea; font-size: 18px; line-height: 1.5rem; font-family: monospace;'>" +
                         "<h2 style='margin-top: 1.5rem;'>Index of " + path + "</h2><hr>" +
                         "<ul>\n").getBytes());
