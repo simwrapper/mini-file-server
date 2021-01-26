@@ -11,4 +11,5 @@ Usage:
 
 - Mini file server will serve all files and subfolders in the root folder that you specify. 
 - If no root is specified, it will serve everything in the working directory from which it is started.
+- Requires Jave JRE 11 or above
 
