@@ -79,7 +79,7 @@ public class SimpleWebServer extends Thread {
     }
     
     public static void main(String[] args) {
-        System.out.println("MINI FILE SERVER --------------------");
+        System.out.println("\nMINI FILE SERVER --------------------");
         try {
             String root = System.getProperty("user.dir");
             if (args.length > 0) root = args[0];
