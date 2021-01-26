@@ -71,7 +71,9 @@ public class RequestThread extends Thread {
             }            
             String path = request.substring(4, request.length() - 9);            
             File file = new File(_rootDir, URLDecoder.decode(path, "UTF-8")).getCanonicalFile();
-            
+
+            System.out.println(path);
+
             if (file.isDirectory()) {
                 // Check to see if there is an index file in the directory.
                 File indexFile = new File(file, "index.html");
@@ -98,17 +100,18 @@ public class RequestThread extends Thread {
                 Arrays.sort(files);
                 sendHeader(out, 200, "text/html", -1, System.currentTimeMillis());
                 String title = "Index of " + path;
-                out.write(("<html><head><title>" + title + "</title></head>" +
-                        "<body style='background-color: #fea; font-size: 16px; line-height: 1.3rem; font-family: monospace;'>" +
-                        "<h2 style='margin-top: 1.3rem;'>Index of " + path + "</h2><hr><p>\n").getBytes());
+                out.write(("<html><head><title tag=\"SimpleWebServer\">" + title + "</title></head>" +
+                        "<body style='background-color: #fea; font-size: 18px; line-height: 1.5rem; font-family: monospace;'>" +
+                        "<h2 style='margin-top: 1.5rem;'>Index of " + path + "</h2><hr>" +
+                        "<ul>\n").getBytes());
 
                 for (int i = 0; i < files.length; i++) {
                     file = files[i];
                     String filename = file.getName();
                     if (file.isDirectory()) filename += "/";
-                    out.write(("<a href=\"" + path + filename + "\">" + filename + "</a> " + "<br>\n").getBytes());
+                    out.write(("<li><a href=\"" + path + filename + "\">" + filename + "</a></li>\n").getBytes());
                 }
-                out.write(("</p><hr><p>" + SimpleWebServer.VERSION + "</p></body><html>").getBytes());
+                out.write(("</ul><hr><p>" + SimpleWebServer.VERSION + "</p></body><html>").getBytes());
             }
             else {
                 reader = new BufferedInputStream(new FileInputStream(file));

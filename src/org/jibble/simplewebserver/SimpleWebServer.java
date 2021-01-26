@@ -9,6 +9,8 @@ Since the GPL may be too restrictive for use in a proprietary application,
 a commercial license is also provided. Full license information can be
 found at http://www.jibble.org/licenses/
 
+http://www.jibble.org/miniwebserver/
+
 $Author: pjm2 $
 $Id: ServerSideScriptEngine.java,v 1.4 2004/02/01 13:37:35 pjm2 Exp $
 
@@ -77,8 +79,13 @@ public class SimpleWebServer extends Thread {
     }
     
     public static void main(String[] args) {
+        System.out.println("SIMPLE WEB SERVER -------------------");
         try {
-            System.out.println("SERVER // SERVE");
+            String root = System.getProperty("user.dir");
+            if (args.length > 0) root = args[0];
+
+            System.out.println("Serving folder: " + root);
+            System.out.println("  Listening on: http://localhost:8000\n");
             SimpleWebServer server = new SimpleWebServer(new File("./"), 8000);
         }
         catch (IOException e) {
