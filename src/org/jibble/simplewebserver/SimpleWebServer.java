@@ -29,7 +29,7 @@ import java.util.*;
  */
 public class SimpleWebServer extends Thread {
 
-    public static final String VERSION = "aftersim - aftersim.github.io | SimpleWebServer - http://www.jibble.org/";
+    public static final String FOOTER = "aftersim - <a href=\"https://aftersim.github.io\">aftersim.github.io/</a> | SimpleWebServer - <a href=\"http://www.jibble.org/\">http://www.jibble.org/</a>";
     public static final Hashtable MIME_TYPES = new Hashtable();
     
     static {
@@ -79,7 +79,7 @@ public class SimpleWebServer extends Thread {
     }
     
     public static void main(String[] args) {
-        System.out.println("SIMPLE WEB SERVER -------------------");
+        System.out.println("MINI FILE SERVER --------------------");
         try {
             String root = System.getProperty("user.dir");
             if (args.length > 0) root = args[0];

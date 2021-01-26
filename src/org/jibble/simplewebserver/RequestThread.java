@@ -18,8 +18,11 @@ package org.jibble.simplewebserver;
 
 import java.io.*;
 import java.net.*;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Copyright Paul Mutton
@@ -27,7 +30,7 @@ import java.util.stream.Collectors;
  *
  */
 public class RequestThread extends Thread {
-    
+
     public RequestThread(Socket socket, File rootDir) {
         _socket = socket;
         _rootDir = rootDir;
@@ -49,7 +52,7 @@ public class RequestThread extends Thread {
     }
     
     private static void sendError(BufferedOutputStream out, int code, String message) throws IOException {
-        message = message + "<hr>" + SimpleWebServer.VERSION;
+        message = message + "<hr>" + SimpleWebServer.FOOTER;
         sendHeader(out, code, "text/html", message.length(), System.currentTimeMillis());
         out.write(message.getBytes());
         out.flush();
@@ -72,7 +75,9 @@ public class RequestThread extends Thread {
             String path = request.substring(4, request.length() - 9);            
             File file = new File(_rootDir, URLDecoder.decode(path, "UTF-8")).getCanonicalFile();
 
-            System.out.println(path);
+            LocalDateTime d = LocalDateTime.now();
+            String dfmt = d.format(DateTimeFormatter.ISO_LOCAL_DATE) + '/' + d.format(DateTimeFormatter.ISO_TIME);
+            System.out.println(dfmt + "  "  + path);
 
             if (file.isDirectory()) {
                 // Check to see if there is an index file in the directory.
@@ -111,7 +116,7 @@ public class RequestThread extends Thread {
                     if (file.isDirectory()) filename += "/";
                     out.write(("<li><a href=\"" + path + filename + "\">" + filename + "</a></li>\n").getBytes());
                 }
-                out.write(("</ul><hr><p>" + SimpleWebServer.VERSION + "</p></body><html>").getBytes());
+                out.write(("</ul><hr><p>" + SimpleWebServer.FOOTER + "</p></body><html>").getBytes());
             }
             else {
                 reader = new BufferedInputStream(new FileInputStream(file));
