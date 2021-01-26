@@ -86,7 +86,7 @@ public class SimpleWebServer extends Thread {
 
             System.out.println("Serving folder: " + root);
             System.out.println("  Listening on: http://localhost:8000\n");
-            SimpleWebServer server = new SimpleWebServer(new File("./"), 8000);
+            SimpleWebServer server = new SimpleWebServer(new File(root), 8000);
         }
         catch (IOException e) {
             System.out.println(e);
