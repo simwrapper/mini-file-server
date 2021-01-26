@@ -19,6 +19,7 @@ package org.jibble.simplewebserver;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Copyright Paul Mutton
@@ -37,7 +38,11 @@ public class RequestThread extends Thread {
                    "Date: " + new Date().toString() + "\r\n" +
                    "Server: JibbleWebServer/1.0\r\n" +
                    "Content-Type: " + contentType + "\r\n" +
-                   "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                   "Expires: Thu, 01 Dec 1971 16:00:00 GMT\r\n" +
+
+                   "Access-Control-Allow-Origin: *\r\n" +
+                   "Cache-Control: no-cache, max-age=0, must-revalidate, no-store\r\n" +
+
                    ((contentLength != -1) ? "Content-Length: " + contentLength + "\r\n" : "") +
                    "Last-modified: " + new Date(lastModified).toString() + "\r\n" +
                    "\r\n").getBytes());
@@ -90,17 +95,18 @@ public class RequestThread extends Thread {
                     path = path + "/";
                 }
                 File[] files = file.listFiles();
+                Arrays.sort(files);
                 sendHeader(out, 200, "text/html", -1, System.currentTimeMillis());
                 String title = "Index of " + path;
-                out.write(("<html><head><title>" + title + "</title></head><body><h3>Index of " + path + "</h3><p>\n").getBytes());
+                out.write(("<html><head><title>" + title + "</title></head>" +
+                        "<body style='background-color: #fea; font-size: 16px; line-height: 1.3rem; font-family: monospace;'>" +
+                        "<h2 style='margin-top: 1.3rem;'>Index of " + path + "</h2><hr><p>\n").getBytes());
+
                 for (int i = 0; i < files.length; i++) {
                     file = files[i];
                     String filename = file.getName();
-                    String description = "";
-                    if (file.isDirectory()) {
-                        description = "&lt;DIR&gt;";
-                    }
-                    out.write(("<a href=\"" + path + filename + "\">" + filename + "</a> " + description + "<br>\n").getBytes());
+                    if (file.isDirectory()) filename += "/";
+                    out.write(("<a href=\"" + path + filename + "\">" + filename + "</a> " + "<br>\n").getBytes());
                 }
                 out.write(("</p><hr><p>" + SimpleWebServer.VERSION + "</p></body><html>").getBytes());
             }

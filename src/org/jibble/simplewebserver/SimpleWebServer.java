@@ -27,7 +27,7 @@ import java.util.*;
  */
 public class SimpleWebServer extends Thread {
 
-    public static final String VERSION = "SimpleWebServer  http://www.jibble.org/";
+    public static final String VERSION = "aftersim - aftersim.github.io | SimpleWebServer - http://www.jibble.org/";
     public static final Hashtable MIME_TYPES = new Hashtable();
     
     static {
