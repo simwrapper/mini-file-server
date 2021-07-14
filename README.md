@@ -3,7 +3,7 @@
 _Local java-based file server for aftersim_
 
 Run this .jar in a local folder on your machine to provide a simple HTTP file server, 
-perfect for serving up files for **aftersim**.
+perfect for serving up files for [SimWrapper](https://simwrapper.github.io).
 
 Usage:
 
