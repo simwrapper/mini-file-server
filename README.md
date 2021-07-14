@@ -1,6 +1,6 @@
 # mini-file-server
 
-_Local java-based file server for aftersim_
+_Local java-based file server for SimWrapper_
 
 Run this .jar in a local folder on your machine to provide a simple HTTP file server, 
 perfect for serving up files for [SimWrapper](https://simwrapper.github.io).
